@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2022-07-26
 
+### Features
+
+- Initial Commit
+- Create Data Output Module for ```Virtual Network (VNET)```
+
 [Unreleased]: https://github.com/patrickhayo/azr-tf-data-module-vnet/compare/1.0.0...HEAD
 
 [1.0.0]: https://github.com/patrickhayo/azr-tf-data-module-vnet/compare/98c7df86561ed7f8a2429af204c4e0fe0d29e741...1.0.0
