@@ -1,6 +1,6 @@
-# azr-tf-module-template
+# azr-tf-data-module-vnet
 
-[Terraform](https://www.terraform.io) Module to create **[NAME]** in Azure
+[Terraform](https://www.terraform.io) Module to get data of a **Virtual Network (VNET)** in Azure
 
 <!-- BEGIN_TF_DOCS -->
 ## Prerequisites
@@ -9,7 +9,9 @@
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >=2.36.0 |
 
 ## Requirements
 
@@ -24,22 +26,44 @@ No modules.
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [azurerm_subnet.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subnet) | data source |
+| [azurerm_virtual_network.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/virtual_network) | data source |
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | (Required) The name of the VNET resource group. | `string` | n/a | yes |
+| <a name="input_subnets"></a> [subnets](#input\_subnets) | (Optional) Name list of specific subnet to output detailed data. | <pre>list(object({<br>    name = string<br>  }))</pre> | n/a | yes |
+| <a name="input_vnet_name"></a> [vnet\_name](#input\_vnet\_name) | (Required) The name of the virtual network to output the data. | `string` | n/a | yes |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_subnet_address_prefixes"></a> [subnet\_address\_prefixes](#output\_subnet\_address\_prefixes) | Contains a list of the address prefixes of the subnets |
+| <a name="output_subnet_ids"></a> [subnet\_ids](#output\_subnet\_ids) | Contains a list of the resource id of the subnets |
+| <a name="output_subnet_names"></a> [subnet\_names](#output\_subnet\_names) | Contains a list of the resource name of the subnets |
+| <a name="output_subnet_service_names"></a> [subnet\_service\_names](#output\_subnet\_service\_names) | Contains a list of the resource name of the azuer reserved subnets |
+| <a name="output_vnet_address_space"></a> [vnet\_address\_space](#output\_vnet\_address\_space) | Conatins a list of address spaces of the virtual network |
+| <a name="output_vnet_id"></a> [vnet\_id](#output\_vnet\_id) | Specifies the resource id of the virtual network |
+| <a name="output_vnet_name"></a> [vnet\_name](#output\_vnet\_name) | Specifies the name of the virtual network |
 
 ## Example
 
 ```hcl
-resource "azurerm_resource_group" "this" {
-  name     = uuid()
-  location = "westeurope"
+module "vnetdata" {
+  source = "./module"
+
+  resource_group_name = "MyVnetResourceGroupName"
+  vnet_name           = "MyVnetName"
+  subnets = [
+    { name : "MySubnetName_1" },
+    { name : "MySubnetName_2" },
+    { name : "MySubnetName_3" }
+  ]
 }
 ```
 
