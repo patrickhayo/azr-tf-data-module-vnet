@@ -8,9 +8,18 @@ terraform {
   }
 }
 
-locals {
-  module_tag = {
-    "module" = basename(abspath(path.module))
+data "azurerm_virtual_network" "this" {
+  name                = var.vnet_name
+  resource_group_name = var.resource_group_name
+}
+
+data "azurerm_subnet" "this" {
+  for_each = {
+    for subnet in var.subnets : subnet.name => subnet
+    if var.subnets != null
   }
-  tags = merge(var.tags, local.module_tag)
+
+  name                 = each.key
+  virtual_network_name = data.azurerm_virtual_network.this.name
+  resource_group_name  = data.azurerm_virtual_network.this.resource_group_name
 }
