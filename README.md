@@ -61,7 +61,7 @@ module "vnetdata" {
   vnet_name           = "MyVnetName"
   subnets = [
     { name : "MySubnetName_1" },
-    { name : "MySubnetName_1" },
+    { name : "MySubnetName_2" },
     { name : "MySubnetName_3" }
   ]
 }
